@@ -1,14 +1,14 @@
 import { useEffect } from "react";
 
-import { Portfolio } from "@shyft-to/js";
 import { useWallet } from "@solana/wallet-adapter-react";
 
 import useShyft from "./useShyft";
+import { Asset } from "../lib/shyft";
 import { LoadingState } from "../store/types";
 import { getPortfolio } from "../store/slices/portfolio";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 
-export default function usePortfolio(): [LoadingState, Portfolio | null] {
+export default function usePortfolio(): [LoadingState, Asset | null] {
   const shyft = useShyft();
   const { publicKey } = useWallet();
   const dispatch = useAppDispatch();

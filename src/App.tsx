@@ -28,7 +28,7 @@ export default function App({ router }: AppProps) {
           <WalletProvider wallets={wallets} autoConnect>
             <Provider store={store}>
               <WalletModalProvider>
-                <div className="fixed inset-0 bg-black text-white flex flex-col font-sans">
+                <div className="fixed inset-0 bg-black text-white flex flex-col font-lato">
                   <RouterProvider router={router} />
                 </div>
               </WalletModalProvider>

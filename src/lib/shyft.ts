@@ -39,12 +39,14 @@ export async function loadPortfolio(shyft: ShyftSdk, wallet: string) {
         };
       })
     )
-  ).concat([solanaTokenInfo]);
+  ).concat([solanaTokenInfo]).reverse();
 
   const nfts = portfolio.nfts;
 
   return { ...portfolio, tokens, nfts };
 }
+
+export type Asset = Awaited<ReturnType<typeof loadPortfolio>>;
 
 export type AssetInfo = Awaited<
   ReturnType<typeof loadPortfolio>

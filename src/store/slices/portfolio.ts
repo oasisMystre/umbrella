@@ -1,9 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-import { Portfolio, ShyftSdk } from "@shyft-to/js";
+import { ShyftSdk } from "@shyft-to/js";
 
 import { LoadingState } from "../types";
-import { loadPortfolio } from "../../lib/shyft";
+import { Asset, loadPortfolio } from "../../lib/shyft";
 
 type GetPortfolioParams = {
   shyft: ShyftSdk;
@@ -19,7 +19,7 @@ export const portfolioSlice = createSlice({
   name: "portfolio",
   initialState: {
     loadingState: "idle" as LoadingState,
-    portfolio: null as Portfolio | null,
+    portfolio: null as Asset | null,
   },
   reducers: {},
   extraReducers(builder) {
