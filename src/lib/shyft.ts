@@ -1,10 +1,5 @@
-import {
-  CollectionInfo,
-  CollectionNfts,
-  ShyftSdk,
-  TokenBalance,
-  TokenInfo,
-} from "@shyft-to/js";
+import { ShyftSdk, TokenBalance, TokenInfo } from "@shyft-to/js";
+
 import { Cache } from "./cache";
 
 async function getTokenInfo(shyft: ShyftSdk, address: string) {
