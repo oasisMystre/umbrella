@@ -1,39 +1,37 @@
-import { Portfolio } from "@shyft-to/js";
-import useTokenInfo from "../composables/useTokenInfo";
 import { useState } from "react";
+import { AssetInfo } from "../lib/shyft";
 
 export namespace AssetToken {
   type ItemProps = {
     selected: boolean;
-    token: Portfolio["tokens"][number];
-    onSelected: (token: Portfolio["tokens"][number], checked: boolean) => void;
+    token: AssetInfo;
+    onSelected: (token: AssetInfo, checked: boolean) => void;
   };
 
   export function Item({ token, selected, onSelected }: ItemProps) {
-    const tokenInfo = useTokenInfo(token);
     const [error, setError] = useState(false);
 
     return (
-      tokenInfo && (
+      token.info && (
         <div className="flex space-x-4 items-center">
           <input
             checked={selected}
             type="checkbox"
-            onChange={() => onSelected(token, !selected)}
+            onInput={() => onSelected(token, !selected)}
           />
           {error ? (
-            <div className="w-10 h-10 bg-white/20 rounded-full" />
+            <div className="w-10 h-10 bg-white/20 rounded-full animate-pulse" />
           ) : (
             <img
-              src={tokenInfo.image}
+              src={token.info.image}
               className="w-10 h-10 rounded-full"
               onError={() => setError(true)}
             />
           )}
           <div className="flex-1 flex flex-col">
-            <p className="text-lg font-bold">{tokenInfo.name}</p>
+            <p className="text-lg font-bold">{token.info.name}</p>
             <p className="text-sm text-stone-300">
-              {token.balance} {tokenInfo.symbol}
+              {token.balance} {token.info.symbol}
             </p>
           </div>
           <div className="flex-col text-end hidden">

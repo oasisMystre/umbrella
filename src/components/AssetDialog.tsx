@@ -10,7 +10,7 @@ import usePortfolio from "../composables/usePortfolio";
 import { AssetNft } from "./AssetNft";
 import AssetError from "./AssetError";
 import AssetEmpty from "./AssetEmpty";
-import { AssetToken } from "./AssetTokenTab";
+import { AssetToken } from "./AssetToken";
 import LoadingTemplate, { LoadingWrapper } from "./LoadingTemplate";
 
 type AssetDialogProps = {

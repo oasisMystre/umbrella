@@ -3,6 +3,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { Portfolio, ShyftSdk } from "@shyft-to/js";
 
 import { LoadingState } from "../types";
+import { loadPortfolio } from "../../lib/shyft";
 
 type GetPortfolioParams = {
   shyft: ShyftSdk;
@@ -11,8 +12,7 @@ type GetPortfolioParams = {
 
 export const getPortfolio = createAsyncThunk(
   "portfolia/getPortfolio",
-  ({ shyft, address }: GetPortfolioParams) =>
-    shyft.wallet.getPortfolio({ wallet: address })
+  ({ shyft, address }: GetPortfolioParams) => loadPortfolio(shyft, address)
 );
 
 export const portfolioSlice = createSlice({
@@ -36,6 +36,5 @@ export const portfolioSlice = createSlice({
       });
   },
 });
-
 
 export const portfolioReducer = portfolioSlice.reducer;
