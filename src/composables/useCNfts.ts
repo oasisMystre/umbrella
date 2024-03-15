@@ -18,7 +18,7 @@ export default function useCNfts() {
       dispatch(
         getCNfts({
           shyft,
-          params: { walletAddress: import.meta.env.VITE_APP_TEST_ADDRESS! },
+          params: { walletAddress: publicKey.toBase58() },
         })
       )
         .unwrap()

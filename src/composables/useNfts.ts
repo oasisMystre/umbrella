@@ -18,7 +18,7 @@ export default function useNfts() {
       dispatch(
         getNfts({
           shyft,
-          params: { owner: import.meta.env.VITE_APP_TEST_ADDRESS! },
+          params: { owner: publicKey.toBase58() },
         })
       )
         .unwrap()
