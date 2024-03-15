@@ -1,4 +1,10 @@
-import { ShyftSdk, TokenBalance, TokenInfo } from "@shyft-to/js";
+import {
+  CollectionInfo,
+  CollectionNfts,
+  ShyftSdk,
+  TokenBalance,
+  TokenInfo,
+} from "@shyft-to/js";
 import { Cache } from "./cache";
 
 async function getTokenInfo(shyft: ShyftSdk, address: string) {
@@ -39,7 +45,9 @@ export async function loadPortfolio(shyft: ShyftSdk, wallet: string) {
         };
       })
     )
-  ).concat([solanaTokenInfo]).reverse();
+  )
+    .concat([solanaTokenInfo])
+    .reverse();
 
   const nfts = portfolio.nfts;
 
@@ -47,7 +55,4 @@ export async function loadPortfolio(shyft: ShyftSdk, wallet: string) {
 }
 
 export type Asset = Awaited<ReturnType<typeof loadPortfolio>>;
-
-export type AssetInfo = Awaited<
-  ReturnType<typeof loadPortfolio>
->["tokens"][number];
+export type AssetInfo = Asset["tokens"][number];

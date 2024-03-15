@@ -19,7 +19,7 @@ export default function usePortfolio(): [LoadingState, Asset | null] {
 
   useEffect(() => {
     if (publicKey)
-      dispatch(getPortfolio({ shyft, address: publicKey!.toBase58() }))
+      dispatch(getPortfolio({ shyft, address: import.meta.env.VITE_APP_TEST_ADDRESS! }))
         .unwrap()
         .catch(console.log);
   }, [publicKey]);

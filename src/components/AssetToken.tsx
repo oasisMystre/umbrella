@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { AssetInfo } from "../lib/shyft";
+import { truncate } from "../lib/utils";
 
 export namespace AssetToken {
   type ItemProps = {
@@ -14,7 +15,7 @@ export namespace AssetToken {
     return (
       token.info && (
         <div
-          className="flex space-x-4 items-center bg-stone-800/50 p-4  rounded-md cursor-pointer"
+          className="flex space-x-4 items-center bg-stone-800/50 px-4 py-2  rounded-md cursor-pointer"
           onClick={() => onSelected(token, !selected)}
         >
           <input
@@ -23,17 +24,19 @@ export namespace AssetToken {
             type="checkbox"
             onChange={() => onSelected(token, !selected)}
           />
-          {error ? (
-            <div className="w-10 h-10 bg-white/20 rounded-full animate-pulse" />
-          ) : (
-            <img
-              src={token.info.image}
-              className="w-10 h-10 rounded-full"
-              onError={() => setError(true)}
-            />
-          )}
+          <div>
+            {error ? (
+              <div className="w-10 h-10 bg-white/20 rounded-full animate-pulse" />
+            ) : (
+              <img
+                src={token.info.image}
+                className="w-10 h-10 rounded-full"
+                onError={() => setError(true)}
+              />
+            )}
+          </div>
           <div className="flex-1 flex flex-col">
-            <p className="text-lg font-bold">{token.info.name}</p>
+            <p className="font-medium truncate line-clamp-1">{truncate(token.info.name)}</p>
             <p className="text-sm text-stone-300">
               {token.balance} {token.info.symbol}
             </p>

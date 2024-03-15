@@ -3,17 +3,16 @@ import {
   createEntityAdapter,
   createSlice,
 } from "@reduxjs/toolkit";
-import { Nft } from "@shyft-to/js";
+import { Nft, ShyftSdk } from "@shyft-to/js";
 
 import { GetParams, LoadingState } from "../types";
 
-type Param = { page?: number } & GetParams;
+type Param = {
+  params: Parameters<ShyftSdk["nft"]["getNftsByOwnerV2"]>[number];
+} & Omit<GetParams, "address">;
 
-export const fetchNfts = ({ shyft, address, page }: Param) =>
-  shyft.nft.getNftsByOwnerV2({
-    page,
-    owner: address,
-  });
+export const fetchNfts = ({ shyft, params }: Param) =>
+  shyft.nft.getNftByOwner(params);
 
 export const getNfts = createAsyncThunk("nft/getNfts", fetchNfts);
 
@@ -22,14 +21,12 @@ export const nftAdapter = createEntityAdapter({
 });
 
 type NftState = {
-  totalPage: number;
   loadingState: LoadingState;
 };
 
 export const nftSlice = createSlice({
   name: "nft",
   initialState: nftAdapter.getInitialState<NftState>({
-    totalPage: 0,
     loadingState: "idle",
   }),
   reducers: {
@@ -45,8 +42,7 @@ export const nftSlice = createSlice({
       })
       .addCase(getNfts.fulfilled, (state, { payload }) => {
         state.loadingState = "success";
-        state.totalPage = payload.total_pages;
-        nftAdapter.setAll(state, payload.nfts);
+        nftAdapter.setAll(state, payload);
       });
   },
 });
