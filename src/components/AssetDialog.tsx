@@ -147,7 +147,10 @@ export default function AssetDialog({ visible, setVisible }: AssetDialogProps) {
               {canLoadMore && (
                 <button
                   className="self-center flex items-center justify-center bg-purple-500 text-white px-8 py-2 rounded-md"
-                  onClick={loadMore}
+                  onClick={() => {
+                    setLoading(true);
+                    loadMore().finally(() => setLoading(false));
+                  }}
                 >
                   {loading ? (
                     <div className="w-6 h-6 border-3 border-t-transparent rounded-full animate-spin" />
