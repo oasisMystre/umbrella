@@ -1,18 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-import { ShyftSdk } from "@shyft-to/js";
-
-import { LoadingState } from "../types";
+import { GetParams, LoadingState } from "../types";
 import { Asset, loadPortfolio } from "../../lib/shyft";
-
-type GetPortfolioParams = {
-  shyft: ShyftSdk;
-  address: string;
-};
 
 export const getPortfolio = createAsyncThunk(
   "portfolia/getPortfolio",
-  ({ shyft, address }: GetPortfolioParams) => loadPortfolio(shyft, address)
+  ({ shyft, address }: GetParams) => loadPortfolio(shyft, address)
 );
 
 export const portfolioSlice = createSlice({

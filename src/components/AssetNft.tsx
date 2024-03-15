@@ -1,10 +1,10 @@
-import { Portfolio } from "@shyft-to/js";
+import { Nft } from "@shyft-to/js";
 
 export namespace AssetNft {
   type ItemProps = {
+    nft: Nft;
     selected: boolean;
-    nft: Portfolio["nfts"][number];
-    onSelected: (item: Portfolio["nfts"][number], checked: boolean) => void;
+    onSelected: (item: Nft, checked: boolean) => void;
   };
   export function Item({ nft, selected, onSelected }: ItemProps) {
     return (
@@ -15,13 +15,16 @@ export namespace AssetNft {
           className="absolute left-2 top-2"
           onChange={() => onSelected(nft, !selected)}
         />
+        {nft.is_compressed && (
+          <button className="absolute right-2 top-2 bg-green-500 text-white px-3 py-1 rounded-full">
+            Cnft
+          </button>
+        )}
         <div className="flex-1">
-          {nft.json && "image" in nft.json && (
-            <img
-              src={nft.json.image as string}
-              className="w-full h-full object-full"
-            />
-          )}
+          <img
+            src={nft.cached_image_uri ?? nft.image_uri}
+            className="w-full h-full object-full"
+          />
         </div>
         <div className="absolute bottom-0 inset-x-0  p-2 bg-white/10 p-2 rounded-b-md">
           <p className="truncate">{nft.name}</p>

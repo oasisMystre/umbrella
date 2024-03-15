@@ -18,10 +18,11 @@ export default function usePortfolio(): [LoadingState, Asset | null] {
   );
 
   useEffect(() => {
-    dispatch(getPortfolio({ shyft, address: publicKey!.toBase58() }))
-      .unwrap()
-      .catch(console.log);
-  }, []);
+    if (publicKey)
+      dispatch(getPortfolio({ shyft, address: publicKey!.toBase58() }))
+        .unwrap()
+        .catch(console.log);
+  }, [publicKey]);
 
   return [loadingState, portfolio];
 }

@@ -13,11 +13,15 @@ export namespace AssetToken {
 
     return (
       token.info && (
-        <div className="flex space-x-4 items-center">
+        <div
+          className="flex space-x-4 items-center bg-stone-800/50 p-4  rounded-md cursor-pointer"
+          onClick={() => onSelected(token, !selected)}
+        >
           <input
+            className="checkbox"
             checked={selected}
             type="checkbox"
-            onInput={() => onSelected(token, !selected)}
+            onChange={() => onSelected(token, !selected)}
           />
           {error ? (
             <div className="w-10 h-10 bg-white/20 rounded-full animate-pulse" />
